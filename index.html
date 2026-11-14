@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkinSeek | Honest skincare, decoded</title>
+<meta name="description" content="SkinSeek scans any skincare product, decodes every ingredient against your skin, checks your routine for clashes and finds the cheaper dupe. Live now on iOS and Android.">
+<meta property="og:title" content="SkinSeek | Honest skincare, decoded">
+<meta property="og:description" content="Scan any product. Know if it's right for your skin. Find the cheaper dupe. Live now on iOS and Android.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://skinseek.co/">
+<meta property="og:image" content="https://skinseek.co/assets/shot-scan.jpg">
+<meta name="apple-itunes-app" content="app-id=6799069683">
+<meta name="theme-color" content="#14251B">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%23fff'/%3E%3Cpath d='M20 5C20 5 9.500 16.500 9.500 24.500a10.500 10.500 0 0 0 21 0C30.500 16.500 20 5 20 5z' fill='%238DB9D3'/%3E%3Cpath d='M15.300 16.500c-1.500 2.200-2.600 4.300-2.900 6.200' fill='none' stroke='%23fff' stroke-opacity='.8' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preload" href="assets/fonts/fraunces-latin-full-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<script>
+/* STORE LINKS: change them here and every button on the page updates. */
+window.SKINSEEK_LINKS = {
+  ios: "https://apps.apple.com/gb/app/skin-seek/id6799069683",
+  android: "https://play.google.com/store/apps/details?id=com.stefansmall.skinseek&hl=en_GB"
+};
+document.documentElement.className = "js";
+</script>
+<style>
+@font-face{font-family:"Fraunces";src:url("assets/fonts/fraunces-latin-full-normal.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:"Fraunces";src:url("assets/fonts/fraunces-latin-full-italic.woff2") format("woff2");font-weight:100 900;font-style:italic;font-display:swap}
+@font-face{font-family:"Inter";src:url("assets/fonts/inter-latin-wght-normal.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
+
+:root{
+  --cream:#FAF8F5; --ink:#1A2E22; --forest:#14251B; --green:#2D6A4F; --green-d:#1F4F3A; --mint:#74C69D;
+  --sand:#F0E8D5; --blush:#F6C9B8; --muted:#5A6B61; --line:rgba(26,46,34,.12);
+  --ease:cubic-bezier(.22,1,.36,1);
+  --serif:"Fraunces",Georgia,"Times New Roman",serif;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{font-family:var(--sans);background:var(--cream);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--mint);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 48px}
+h1,h2,h3{font-family:var(--serif);font-variation-settings:"opsz" 48,"SOFT" 30;font-weight:600;letter-spacing:-.015em;line-height:1.05}
+em{font-style:italic;color:var(--green)}
+.on-dark{background:var(--forest);color:#fff}
+.on-dark em{color:var(--mint)}
+.grain{position:relative;isolation:isolate}
+.grain::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.55;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.09'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 0;color:#fff;transition:background .35s,color .35s,box-shadow .35s,padding .35s}
+.nav .wrap{display:flex;justify-content:space-between;align-items:center}
+.nav.scrolled{background:rgba(20,37,27,.82);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);padding:13px 0}
+.nav.solid{background:rgba(250,248,245,.9);-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px);color:var(--ink);box-shadow:0 10px 34px -22px rgba(26,46,34,.4);padding:13px 0}
+.logo{font-family:var(--serif);font-variation-settings:"opsz" 48,"SOFT" 30;font-style:normal;font-size:27px;font-weight:600;letter-spacing:-.015em;color:var(--mint);display:flex;align-items:center;gap:10px;text-decoration:none;transition:color .35s}
+.logo .drop{width:24px;height:30px;flex-shrink:0}
+.nav.solid .logo{color:var(--green)}
+.nav-links{display:flex;gap:34px;align-items:center;font-size:15px;font-weight:500}
+.nav-links a{text-decoration:none;opacity:.86;transition:opacity .2s}
+.nav-links a:hover{opacity:1}
+.nav-links .nav-cta{opacity:1;background:var(--mint);color:var(--forest);padding:11px 22px;border-radius:100px;font-weight:650;white-space:nowrap;transition:transform .25s var(--ease),background .25s,color .25s}
+.nav-links .nav-cta:hover{transform:translateY(-2px)}
+.nav.solid .nav-cta{background:var(--green);color:#fff}
+
+/* STORE BUTTONS */
+.stores{display:flex;gap:12px;flex-wrap:wrap}
+.store{display:inline-flex;flex-direction:column;justify-content:center;min-width:184px;padding:12px 28px 13px;border-radius:18px;background:#fff;color:var(--forest);text-decoration:none;line-height:1.15;transition:transform .25s var(--ease),box-shadow .25s,background .25s}
+.store:hover{transform:translateY(-3px);background:var(--mint);box-shadow:0 22px 44px -18px rgba(116,198,157,.55)}
+.store small{font-size:11.5px;font-weight:500;opacity:.68}
+.store span{font-size:20px;font-weight:650;letter-spacing:-.01em}
+
+/* HERO */
+.hero{padding:124px 0 0;overflow:hidden;background:
+  radial-gradient(900px 620px at 78% 38%,rgba(116,198,157,.26),transparent 62%),
+  radial-gradient(700px 500px at 4% 105%,rgba(45,106,79,.5),transparent 65%),
+  var(--forest)}
+.hero-grid{display:grid;grid-template-columns:1.04fr .96fr;gap:40px;align-items:center;padding-bottom:84px}
+.live{display:inline-flex;align-items:center;gap:10px;font-size:14px;font-weight:550;color:var(--mint);padding:8px 16px 8px 13px;border:1px solid rgba(116,198,157,.35);border-radius:100px}
+.live i{width:8px;height:8px;border-radius:50%;background:var(--mint);animation:pulse 2.2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(116,198,157,.7)}70%{box-shadow:0 0 0 10px rgba(116,198,157,0)}100%{box-shadow:0 0 0 0 rgba(116,198,157,0)}}
+.hero h1{font-size:clamp(42px,5.1vw,74px);margin:26px 0 26px;line-height:1.03}
+.hero h1 .ln{display:block;white-space:nowrap}
+.hero h1 .was{position:relative;white-space:nowrap;color:var(--blush)}
+.hero h1 .was::after{content:"";position:absolute;left:-3%;right:-3%;top:54%;height:.075em;border-radius:1em;background:var(--blush);transform-origin:left;transform:rotate(-4deg) scaleX(1)}
+.js .hero h1 .was::after{animation:strike .7s var(--ease) 1.1s both}
+@keyframes strike{from{transform:rotate(-4deg) scaleX(0)}to{transform:rotate(-4deg) scaleX(1)}}
+.hero h1 em{white-space:nowrap}
+.hero-sub{font-size:20px;color:rgba(255,255,255,.74);line-height:1.55;max-width:500px;margin-bottom:38px}
+.hero-meta{margin-top:26px;font-size:14px;color:rgba(255,255,255,.55);display:flex;gap:8px 24px;flex-wrap:wrap}
+.js .hero-copy>*{animation:rise .9s var(--ease) both}
+.js .hero-copy>*:nth-child(2){animation-delay:.08s}.js .hero-copy>*:nth-child(3){animation-delay:.16s}.js .hero-copy>*:nth-child(4){animation-delay:.24s}.js .hero-copy>*:nth-child(5){animation-delay:.32s}
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+
+.fan{position:relative;width:100%;max-width:640px;margin:0 auto;aspect-ratio:1/.98}
+.fan figure{position:absolute;border-radius:9.5% / 6.6%;overflow:hidden;box-shadow:0 50px 90px -30px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.08)}
+.fan .t-mid{width:58%;left:21%;top:0;z-index:3;--r:0deg;--x:0%}
+.fan .t-left{width:44%;left:-3%;top:17%;z-index:2;--r:-8deg;--x:62%}
+.fan .t-right{width:44%;right:-3%;top:19%;z-index:1;--r:8deg;--x:-62%}
+.fan figure{transform:rotate(var(--r))}
+.js .fan figure{animation:deal 1.3s var(--ease) .25s both}
+.js .fan .t-mid{animation-delay:.1s}
+@keyframes deal{from{opacity:0;transform:translate(var(--x),12%) rotate(0deg) scale(.92)}to{opacity:1;transform:rotate(var(--r))}}
+
+.ticker{border-top:1px solid rgba(255,255,255,.1);padding:18px 0;overflow:hidden}
+.ticker-track{display:flex;gap:60px;width:max-content;animation:tick 38s linear infinite}
+.ticker:hover .ticker-track{animation-play-state:paused}
+.ticker span{white-space:nowrap;font-size:15px;color:rgba(255,255,255,.62)}
+.ticker b{color:#fff;font-weight:600}
+.ticker i{font-style:normal;color:var(--mint);font-weight:650}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* STATEMENT */
+.statement{padding:150px 0 130px}
+.statement h2{font-size:clamp(38px,6.2vw,92px);line-height:1.04;max-width:1100px}
+.statement h2 .w{transition:opacity .25s linear}
+.problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:48px;margin-top:96px}
+.problem-grid>div{border-top:1.5px solid var(--line);padding-top:26px}
+.problem-grid .num{font-family:var(--serif);font-variation-settings:"opsz" 48,"SOFT" 30;font-size:58px;font-weight:600;color:var(--green);line-height:1;margin-bottom:14px}
+.problem-grid h3{font-size:23px;margin-bottom:10px}
+.problem-grid p{color:var(--muted);font-size:15.5px;line-height:1.6}
+
+/* FEATURES (sticky stage) */
+.features{padding:0 0 60px}
+.features-intro{padding-bottom:40px}
+.features-intro h2{font-size:clamp(36px,4.6vw,60px);max-width:680px}
+.stagewrap{display:grid;grid-template-columns:1fr 1fr;gap:88px;align-items:start}
+.stage{position:sticky;top:108px;height:calc(100vh - 150px);max-height:760px;min-height:480px;display:grid;place-items:center}
+.stage-inner{position:relative;height:100%;aspect-ratio:3/4;max-width:100%}
+.stage-inner::before{content:"";position:absolute;inset:7% -8% -5% 8%;border-radius:44px;background:var(--tint,#E4DDF3);transition:background .7s var(--ease);z-index:0}
+.stage-inner img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;border-radius:36px;opacity:0;transform:scale(1.04);transition:opacity .7s var(--ease),transform 1s var(--ease);box-shadow:0 44px 84px -44px rgba(26,46,34,.5),0 0 0 1px rgba(26,46,34,.05);z-index:1}
+.stage-inner img.on{opacity:1;transform:none}
+.stage-dots{position:absolute;left:-34px;top:50%;transform:translateY(-50%);display:grid;gap:10px;z-index:2}
+.stage-dots i{width:6px;height:6px;border-radius:6px;background:rgba(26,46,34,.2);transition:height .4s var(--ease),background .4s}
+.stage-dots i.on{height:30px;background:var(--green)}
+.feature{min-height:calc(100vh - 150px);max-height:860px;display:flex;flex-direction:column;justify-content:center;padding:40px 0}
+.feature .m-shot{display:none}
+.feature .name{display:inline-block;align-self:flex-start;font-size:14px;font-weight:650;color:var(--green);padding:7px 15px;border-radius:100px;background:var(--tint);margin-bottom:20px}
+.feature h3{font-size:clamp(32px,3.5vw,46px);margin-bottom:20px;line-height:1.08;max-width:520px}
+.feature p{font-size:17.5px;color:var(--muted);margin-bottom:26px;line-height:1.6;max-width:500px}
+.feature ul{list-style:none;max-width:500px}
+.feature li{padding:15px 0;border-top:1px solid var(--line);font-size:15.5px;display:flex;gap:14px;font-weight:500}
+.feature li::before{content:"";width:19px;height:19px;flex-shrink:0;margin-top:2px;border-radius:50%;background:var(--green) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.3 8.2l2.6 2.6 4.8-5.6' stroke='white' stroke-width='1.9' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat}
+
+/* RECEIPT */
+.maths{padding:140px 0;overflow:hidden;background:radial-gradient(800px 600px at 90% 10%,rgba(116,198,157,.16),transparent 60%),var(--forest)}
+.maths-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.maths h2{font-size:clamp(40px,5.6vw,80px);margin-bottom:28px}
+.maths h2 em{white-space:nowrap}
+.maths .lede{font-size:19px;color:rgba(255,255,255,.72);max-width:460px;line-height:1.6}
+.maths .fine{margin-top:22px;font-size:13.5px;color:rgba(255,255,255,.45);max-width:420px}
+.receipt-shadow{filter:drop-shadow(0 50px 60px rgba(0,0,0,.5));transform:rotate(2.2deg);max-width:470px;margin:0 auto;width:100%}
+.receipt{background:#FFFDF8;color:var(--ink);padding:38px 34px 54px;
+  -webkit-mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/22px 100%;
+          mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/22px 100%}
+.receipt header{text-align:center;padding-bottom:20px;border-bottom:1.5px dashed rgba(26,46,34,.25);margin-bottom:8px}
+.receipt header b{font-family:var(--serif);font-variation-settings:"opsz" 48,"SOFT" 30;font-style:normal;font-size:26px;color:var(--green);display:block}
+.receipt header span{font-size:13px;color:var(--muted)}
+.receipt .row{display:grid;grid-template-columns:1fr auto auto;gap:14px;align-items:baseline;padding:13px 0;border-bottom:1px solid rgba(26,46,34,.08);font-variant-numeric:tabular-nums}
+.receipt .row b{font-weight:600;font-size:15.5px;display:block}
+.receipt .row small{font-size:13.5px;color:var(--muted)}
+.receipt .row s{color:#B04343;font-size:15px;text-decoration-thickness:1.5px}
+.receipt .row strong{font-size:18px;font-weight:700;min-width:46px;text-align:right}
+.receipt .sum{display:flex;justify-content:space-between;padding:10px 0 0;font-size:15px;color:var(--muted);font-variant-numeric:tabular-nums}
+.receipt .sum:first-of-type{margin-top:14px;padding-top:18px;border-top:1.5px dashed rgba(26,46,34,.25)}
+.receipt .keep{display:flex;justify-content:space-between;align-items:baseline;margin-top:18px;padding:16px 20px;border-radius:16px;background:var(--forest);color:#fff}
+.receipt .keep span{font-size:15px;font-weight:600}
+.receipt .keep b{font-family:var(--serif);font-variation-settings:"opsz" 48,"SOFT" 30;font-size:40px;font-weight:600;color:var(--mint);line-height:1}
+
+/* HOW */
+.how{padding:140px 0}
+.how-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:96px;align-items:center}
+.how-shot{border-radius:36px;overflow:hidden;box-shadow:0 44px 84px -44px rgba(26,46,34,.45),0 0 0 1px rgba(26,46,34,.05)}
+.how h2{font-size:clamp(36px,4.6vw,60px);margin-bottom:48px}
+.how ol{list-style:none;counter-reset:s}
+.how li{counter-increment:s;display:grid;grid-template-columns:76px 1fr;gap:8px;padding:28px 0;border-top:1.5px solid var(--line)}
+.how li::before{content:counter(s);font-family:var(--serif);font-variation-settings:"opsz" 48,"SOFT" 30;font-style:italic;font-size:54px;font-weight:600;color:var(--green);line-height:.9}
+.how li h3{font-size:25px;margin-bottom:8px}
+.how li p{font-size:15.5px;color:var(--muted);line-height:1.65;max-width:480px}
+
+/* TRUST */
+.trust{padding:0 0 140px}
+.trust-grid{display:grid;grid-template-columns:repeat(4,1fr);border-radius:32px;background:#fff;box-shadow:0 0 0 1px var(--line);overflow:hidden}
+.trust-grid>div{padding:38px 32px 40px}
+.trust-grid>div+div{border-left:1px solid var(--line)}
+.trust-grid svg{width:30px;height:30px;stroke:var(--green);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;margin-bottom:20px}
+.trust-grid h3{font-size:21px;margin-bottom:10px}
+.trust-grid p{font-size:14.5px;color:var(--muted);line-height:1.6}
+
+/* FAQ */
+.faq{background:var(--sand);padding:130px 0}
+.faq-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:72px;align-items:start}
+.faq-side{position:sticky;top:120px}
+.faq h2{font-size:clamp(36px,4.4vw,56px);margin-bottom:22px}
+.faq-side p{font-size:18px;color:var(--muted);max-width:360px}
+details{border-top:1.5px solid rgba(26,46,34,.14)}
+details:last-child{border-bottom:1.5px solid rgba(26,46,34,.14)}
+summary{list-style:none;cursor:pointer;padding:24px 0;font-family:var(--serif);font-variation-settings:"opsz" 48,"SOFT" 30;font-size:21px;font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:18px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"";width:10px;height:10px;border-right:2px solid var(--green);border-bottom:2px solid var(--green);transform:rotate(45deg);transition:transform .35s var(--ease);flex-shrink:0;margin-right:6px}
+details[open] summary::after{transform:rotate(225deg)}
+details p{padding:0 40px 26px 0;font-size:16px;color:var(--muted);line-height:1.65}
+
+/* DOWNLOAD */
+.download{padding:150px 0 140px;text-align:center;overflow:hidden;background:
+  radial-gradient(900px 560px at 50% 112%,rgba(116,198,157,.34),transparent 62%),var(--forest)}
+.download h2{font-size:clamp(46px,7.4vw,112px);line-height:.98;margin-bottom:26px}
+.download>.wrap>p{font-size:20px;color:rgba(255,255,255,.75);max-width:520px;margin:0 auto 56px}
+.dl-cards{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:860px;margin:0 auto}
+.dl-card{display:flex;align-items:center;gap:26px;text-align:left;text-decoration:none;background:#fff;color:var(--forest);border-radius:30px;padding:24px 28px 24px 24px;box-shadow:0 40px 80px -30px rgba(0,0,0,.6);transition:transform .35s var(--ease),box-shadow .35s}
+.dl-card:hover{transform:translateY(-8px);box-shadow:0 50px 90px -30px rgba(116,198,157,.5)}
+.dl-card .qr{width:132px;height:132px;flex-shrink:0;padding:12px;border-radius:18px;background:var(--cream);box-shadow:inset 0 0 0 1px var(--line)}
+.dl-card .qr img{width:100%;height:100%}
+.dl-card small{display:block;font-size:13.5px;color:var(--muted);margin-bottom:4px}
+.dl-card b{display:block;font-family:var(--serif);font-variation-settings:"opsz" 48,"SOFT" 30;font-size:32px;font-weight:600;line-height:1.05;margin-bottom:16px}
+.dl-card .go{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#fff;font-weight:650;font-size:15.5px;padding:12px 22px;border-radius:100px;transition:background .25s}
+.dl-card:hover .go{background:var(--forest)}
+.dl-card .go svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.dl-note{margin-top:34px;font-size:14px;color:rgba(255,255,255,.55)}
+
+/* FOOTER */
+footer{background:var(--forest);color:rgba(255,255,255,.7);padding:64px 0 110px;border-top:1px solid rgba(255,255,255,.08)}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+footer .logo{font-size:25px}
+.footer-blurb{font-size:14px;line-height:1.6;max-width:320px;color:rgba(255,255,255,.6);margin-top:16px}
+.footer-col h4{font-size:13px;color:rgba(255,255,255,.5);margin-bottom:14px;font-weight:600}
+.footer-col a{display:block;color:rgba(255,255,255,.8);text-decoration:none;padding:6px 0;font-size:14.5px;transition:color .15s}
+.footer-col a:hover{color:var(--mint)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:24px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13px;color:rgba(255,255,255,.5)}
+
+/* FLOATING DOWNLOAD PILL */
+.float-dl{position:fixed;right:28px;bottom:28px;z-index:120;display:inline-flex;align-items:center;gap:10px;background:var(--mint);color:var(--forest);font-weight:700;font-size:16px;padding:16px 26px 16px 22px;border-radius:100px;text-decoration:none;box-shadow:0 18px 40px -12px rgba(20,37,27,.65),0 0 0 5px rgba(116,198,157,.22);animation:bob 2.6s ease-in-out infinite}
+.float-dl svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.float-dl:hover{animation-play-state:paused;background:#fff}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+/* one scroll reveal, used sparingly */
+.js .rv{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.js .rv.in{opacity:1;transform:none}
+
+@media (max-width:980px){
+  .wrap{padding:0 24px}
+  .nav-links a:not(.nav-cta){display:none}
+  .hero{padding-top:108px}
+  .hero h1 .ln{display:inline;white-space:normal}
+  .fan{max-width:440px}
+  .hero-grid{grid-template-columns:1fr;gap:56px;padding-bottom:72px}
+  .statement{padding:96px 0 88px}
+  .problem-grid{grid-template-columns:1fr;gap:32px;margin-top:64px}
+  .stagewrap{display:block}
+  .stage{display:none}
+  .feature{min-height:0;max-height:none;padding:0 0 88px}
+  .feature .m-shot{display:block;position:relative;max-width:400px;margin:0 auto 44px;width:88%}
+  .feature .m-shot::before{content:"";position:absolute;inset:7% -8% -5% 8%;border-radius:36px;background:var(--tint)}
+  .feature .m-shot img{position:relative;border-radius:30px;box-shadow:0 40px 70px -40px rgba(26,46,34,.5)}
+  .maths{padding:96px 0}
+  .maths-grid,.how-grid,.faq-grid{grid-template-columns:1fr;gap:56px}
+  .how{padding:96px 0}
+  .how-shot{max-width:420px;margin:0 auto}
+  .trust{padding-bottom:96px}
+  .trust-grid{grid-template-columns:1fr 1fr}
+  .trust-grid>div:nth-child(3){border-left:0}
+  .trust-grid>div:nth-child(n+3){border-top:1px solid var(--line)}
+  .faq{padding:96px 0}
+  .faq-side{position:static}
+  .download{padding:110px 0 100px}
+  .dl-cards{grid-template-columns:1fr;max-width:440px}
+  .dl-card .qr{display:none}
+  .dl-card{padding:26px 28px}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
+  .float-dl{right:50%;margin-right:-98px;width:196px;justify-content:center;bottom:18px;padding:15px 20px}
+}
+@media (max-width:520px){
+  .store{flex:1;min-width:0;padding:12px 18px 13px}
+  .hero-sub{font-size:18px}
+  .trust-grid{grid-template-columns:1fr}
+  .trust-grid>div+div{border-left:0;border-top:1px solid var(--line)}
+  .how li{grid-template-columns:54px 1fr}
+  .how li::before{font-size:44px}
+  .receipt{padding:30px 22px 48px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+  .js .rv{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="wrap">
+    <a href="#top" class="logo"><svg class="drop" viewBox="0 0 32 40" aria-hidden="true"><defs><linearGradient id="dg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#B9D6E6"/><stop offset="1" stop-color="#7EAECB"/></linearGradient></defs><path d="M16 1.500C16 1.500 3 15.500 3 25a13 13 0 0 0 26 0C29 15.500 16 1.500 16 1.500z" fill="url(#dg1)"/><path d="M10.200 15.500c-1.900 2.700-3.300 5.300-3.600 7.600" fill="none" stroke="#fff" stroke-opacity=".75" stroke-width="2.400" stroke-linecap="round"/></svg>SkinSeek</a>
+    <div class="nav-links">
+      <a href="#problem">The problem</a>
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#faq">FAQ</a>
+      <a href="#download" class="nav-cta" data-smart>Download now</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero on-dark grain" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <div class="live"><i></i>Now live on iOS and Android</div>
+        <h1><span class="ln">The <span class="was">£270</span> cream</span> <span class="ln">has a <em>£15 dupe.</em></span> <span class="ln">We'll find it.</span></h1>
+        <p class="hero-sub">SkinSeek scans any skincare product, decodes every ingredient against your skin type, and finds you the cheaper alternative with the same actives. Honest skincare, finally.</p>
+        <div class="stores">
+          <a class="store" data-store="ios" href="#download"><small>Download on the</small><span>App Store</span></a>
+          <a class="store" data-store="android" href="#download"><small>Get it on</small><span>Google Play</span></a>
+        </div>
+        <div class="hero-meta"><span>Free to download</span><span>Personalised to your skin</span><span>Made in the UK</span></div>
+      </div>
+      <div class="fan" aria-label="Screens from the SkinSeek app" role="img">
+        <figure class="t-left"><img src="assets/shot-dupe.jpg" width="716" height="1055" alt=""></figure>
+        <figure class="t-mid"><img src="assets/shot-scan.jpg" width="941" height="1382" alt=""></figure>
+        <figure class="t-right"><img src="assets/shot-routine.jpg" width="941" height="1272" alt=""></figure>
+      </div>
+    </div>
+  </div>
+  <div class="ticker" aria-hidden="true"><div class="ticker-track" id="ticker">
+    <span><b>La Mer £270</b> → CeraVe £14 <i>Save £256</i></span>
+    <span><b>Sunday Riley £94</b> → Garnier £8 <i>Save £86</i></span>
+    <span><b>Charlotte Tilbury £68</b> → Olay £33 <i>Save £35</i></span>
+    <span><b>Drunk Elephant £75</b> → CeraVe £18 <i>Save £57</i></span>
+    <span><b>REN £38</b> → The Ordinary £8 <i>Save £30</i></span>
+  </div></div>
+</header>
+
+<section class="statement" id="problem">
+  <div class="wrap">
+    <h2 id="statement">You have been paying for the packaging and the <em>marketing.</em> Not the ingredients.</h2>
+    <div class="problem-grid">
+      <div class="rv">
+        <div class="num">£270</div>
+        <h3>The luxury markup</h3>
+        <p>Brands charge ten times more for the same hero ingredients you can find at any health and beauty retailer. The price tag is mostly the jar.</p>
+      </div>
+      <div class="rv">
+        <div class="num">1 in 3</div>
+        <h3>Routines that clash</h3>
+        <p>Most routines contain ingredient combinations that cancel each other out. Vitamin C and retinol. Niacinamide and acids. You are wasting both products.</p>
+      </div>
+      <div class="rv">
+        <div class="num">70%</div>
+        <h3>Products wrong for you</h3>
+        <p>The "best moisturiser" reviewed by an influencer with different skin to yours is not your best moisturiser. Reviews are not personalised. SkinSeek is.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="features" id="features">
+  <div class="wrap">
+    <div class="features-intro"><h2>Four tools. One <em>smarter</em> skincare life.</h2></div>
+    <div class="stagewrap">
+      <div class="stage" aria-hidden="true">
+        <div class="stage-inner" id="stage">
+          <div class="stage-dots"><i class="on"></i><i></i><i></i><i></i></div>
+          <img class="on" src="assets/shot-ingredient.jpg" alt="">
+          <img loading="lazy" src="assets/shot-dupe.jpg" alt="">
+          <img loading="lazy" src="assets/shot-clash.jpg" alt="">
+          <img loading="lazy" src="assets/shot-routine.jpg" alt="">
+        </div>
+      </div>
+      <div class="feature-list">
+        <article class="feature" id="ingredient" style="--tint:#E4DDF3">
+          <div class="m-shot"><img loading="lazy" src="assets/shot-ingredient.jpg" width="941" height="1242" alt="Ingredient analysis screen showing a personalised score, hero ingredients, a fragrance warning and filler ingredients"></div>
+          <span class="name">Ingredient Analyser</span>
+          <h3>Decode any product in seconds.</h3>
+          <p>Scan a barcode or paste an ingredient list. SkinSeek breaks down every ingredient against your exact skin profile and tells you what is hero, what to watch, and what to avoid.</p>
+          <ul>
+            <li>Personalised score out of 10 based on your skin type, sensitivities, and age</li>
+            <li>Every ingredient explained in plain English. No marketing tricks.</li>
+            <li>Flags ingredients that are wrong for you, even when the product is popular</li>
+          </ul>
+        </article>
+        <article class="feature" id="dupe" style="--tint:#F8D9CC">
+          <div class="m-shot"><img loading="lazy" src="assets/shot-dupe.jpg" width="716" height="1055" alt="Dupe Finder screen showing an £85 moisturiser with two cheaper alternatives at £7 and £9"></div>
+          <span class="name">Dupe Finder</span>
+          <h3>The £15 alternative your favourite skincare influencers don't tell you about.</h3>
+          <p>Scan your most expensive product. SkinSeek matches the active ingredients against thousands of cheaper alternatives and shows you the one that actually works for your skin.</p>
+          <ul>
+            <li>Real ingredient matching, not random cheaper products with similar names</li>
+            <li>Filtered by your skin type, allergies, and current routine</li>
+            <li>One-tap buy direct to Boots, Cult Beauty, or LookFantastic</li>
+          </ul>
+        </article>
+        <article class="feature" id="clash" style="--tint:#FBE9CF">
+          <div class="m-shot"><img loading="lazy" src="assets/shot-clash.jpg" width="791" height="1055" alt="Clash Checker screen listing four products in a routine with a result confirming they can be used together"></div>
+          <span class="name">Clash Checker</span>
+          <h3>Find the ingredient conflicts you didn't know existed.</h3>
+          <p>Your routine might be working against itself. SkinSeek scans every product on your shelf and flags every clash, with clear guidance on how to fix it.</p>
+          <ul>
+            <li>Detects every ingredient conflict across AM and PM routines</li>
+            <li>Tells you exactly when to use each product so they all work together</li>
+            <li>Six clashes detected per routine on average. Yours could be one of them.</li>
+          </ul>
+        </article>
+        <article class="feature" id="routine" style="--tint:#DCEBDD">
+          <div class="m-shot"><img loading="lazy" src="assets/shot-routine.jpg" width="941" height="1272" alt="Build My Routine screen showing a personalised morning cleanser step with price, key ingredients and why it works"></div>
+          <span class="name">Build My Routine</span>
+          <h3>The routine you'll actually do.</h3>
+          <p>Set up your skin profile once. The app builds the AM and PM routine that fits your concerns, your sensitivity profile, and your budget. Every product matched and explained.</p>
+          <ul>
+            <li>Personalised based on your full skin profile, not generic advice</li>
+            <li>Right products, right order, right time of day</li>
+            <li>Budget-aware: simple 3-step routine or full 7-step, your choice</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="maths on-dark grain">
+  <div class="wrap">
+    <div class="maths-grid">
+      <div>
+        <h2>Same actives. <em>£464</em> less.</h2>
+        <p class="lede">Five luxury favourites, swapped for the dupes with matching hero ingredients. That is the difference between paying for the jar and paying for what is in it.</p>
+        <p class="fine">Example swaps from the SkinSeek dupe database. Prices vary by retailer and change over time.</p>
+      </div>
+      <div class="receipt-shadow rv">
+        <div class="receipt">
+          <header><b>SkinSeek</b><span>Your shelf, decoded</span></header>
+          <div class="row"><div><b>La Mer</b><small>swap for CeraVe</small></div><s>£270</s><strong>£14</strong></div>
+          <div class="row"><div><b>Sunday Riley</b><small>swap for Garnier</small></div><s>£94</s><strong>£8</strong></div>
+          <div class="row"><div><b>Drunk Elephant</b><small>swap for CeraVe</small></div><s>£75</s><strong>£18</strong></div>
+          <div class="row"><div><b>Charlotte Tilbury</b><small>swap for Olay</small></div><s>£68</s><strong>£33</strong></div>
+          <div class="row"><div><b>REN</b><small>swap for The Ordinary</small></div><s>£38</s><strong>£8</strong></div>
+          <div class="sum"><span>Luxury shelf</span><span>£545</span></div>
+          <div class="sum"><span>SkinSeek shelf</span><span>£81</span></div>
+          <div class="keep"><span>You keep</span><b>£464</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how" id="how">
+  <div class="wrap">
+    <div class="how-grid">
+      <div class="how-shot rv"><img loading="lazy" src="assets/shot-home.jpg" width="941" height="1188" alt="SkinSeek home screen with its four tools: Ingredient Analyser, Clash Checker, Dupe Finder and Build My Routine"></div>
+      <div>
+        <h2>From download to honest answers in <em>two minutes.</em></h2>
+        <ol>
+          <li><div><h3>Set up your skin profile</h3><p>13 quick questions that take under 90 seconds. The app learns your skin type, sensitivities, age, current routine, and what you're actually trying to fix.</p></div></li>
+          <li><div><h3>Scan, search, or build</h3><p>Scan a product barcode, paste an ingredient list, check your routine for clashes, or tap Build My Routine for a personalised plan instantly.</p></div></li>
+          <li><div><h3>Get answers made for you</h3><p>Every result is personalised. The same product scores differently depending on whose skin it's on. Honest, specific, no marketing fluff.</p></div></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="trust">
+  <div class="wrap">
+    <div class="trust-grid rv">
+      <div>
+        <svg viewBox="0 0 32 32"><circle cx="16" cy="11" r="5.5"/><path d="M5.5 27c1.2-5.4 5.4-8 10.5-8s9.3 2.600 10.5 8"/></svg>
+        <h3>Personal by default</h3>
+        <p>Every score, flag and routine is worked out against your skin profile. The same product reads differently on different skin.</p>
+      </div>
+      <div>
+        <svg viewBox="0 0 32 32"><path d="M6 12h20l-1.6 14H7.600z"/><path d="M11.500 12V9.500a4.500 4.500 0 0 1 9 0V12"/></svg>
+        <h3>UK shelves, UK prices</h3>
+        <p>Products you can actually buy here, priced in pounds, from the retailers you already shop with.</p>
+      </div>
+      <div>
+        <svg viewBox="0 0 32 32"><path d="M17.500 5H27v9.500L15 26.500 5.500 17z"/><circle cx="21.500" cy="10.500" r="1.800"/></svg>
+        <h3>Links, always labelled</h3>
+        <p>Some buy links may earn SkinSeek a commission. The app says so every time, and it never costs you more.</p>
+      </div>
+      <div>
+        <svg viewBox="0 0 32 32"><path d="M16 4l10 4v7c0 6.500-4.200 11-10 13-5.800-2-10-6.500-10-13V8z"/><path d="M11.500 16l3.200 3.200 5.800-6.400"/></svg>
+        <h3>Your data stays yours</h3>
+        <p>Your skin profile is used only to personalise the app. Never sold to third parties. UK GDPR-compliant.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div class="faq-grid">
+      <div class="faq-side">
+        <h2>Everything you need to <em>know.</em></h2>
+        <p>Something else on your mind? Email us at <a href="mailto:hello@skinseek.co">hello@skinseek.co</a>.</p>
+      </div>
+      <div>
+        <details open>
+          <summary>Is SkinSeek available now?</summary>
+          <p>Yes. SkinSeek is live on the App Store for iPhone and on Google Play for Android. Download it, set up your skin profile and you can start scanning straight away.</p>
+        </details>
+        <details>
+          <summary>How much does it cost?</summary>
+          <p>Free to download and try. Premium features (unlimited scans, full dupe database, advanced routine builder) are £2.99 per month or £19.99 per year. No hidden costs.</p>
+        </details>
+        <details>
+          <summary>Will it work for my skin tone?</summary>
+          <p>Yes. SkinSeek's recommendations are calibrated for every Fitzpatrick skin tone. Pigmentation and SPF guidance changes based on your specific tone, not generic advice.</p>
+        </details>
+        <details>
+          <summary>Is my data private?</summary>
+          <p>Yes. Your skin profile is stored securely and used only to personalise your SkinSeek experience. We never sell your data to third parties. UK GDPR-compliant.</p>
+        </details>
+        <details>
+          <summary>Does it work for pregnancy?</summary>
+          <p>Yes. SkinSeek automatically filters out ingredients that should be avoided during pregnancy and breastfeeding, including retinoids and high-concentration salicylic acid.</p>
+        </details>
+        <details>
+          <summary>Will it have the products I use?</summary>
+          <p>SkinSeek covers thousands of UK-available products including high street staples, pharmacy brands, and luxury skincare. If something's missing, OCR captures the ingredients from the bottle.</p>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="download on-dark grain" id="download">
+  <div class="wrap">
+    <h2>Stop guessing.<br>Start <em>knowing.</em></h2>
+    <p>Download SkinSeek and get honest, personalised answers about every product on your shelf.</p>
+    <div class="dl-cards">
+      <a class="dl-card" data-store="ios" href="#download">
+        <div class="qr"><img loading="lazy" src="assets/qr-ios.svg" alt="QR code for SkinSeek on the App Store"></div>
+        <div><small>For iPhone</small><b>App Store</b><span class="go">Download now <svg viewBox="0 0 16 16"><path d="M8 2v9M4 7.500 8 11.500l4-4M3 14h10"/></svg></span></div>
+      </a>
+      <a class="dl-card" data-store="android" href="#download">
+        <div class="qr"><img loading="lazy" src="assets/qr-android.svg" alt="QR code for SkinSeek on Google Play"></div>
+        <div><small>For Android</small><b>Google Play</b><span class="go">Download now <svg viewBox="0 0 16 16"><path d="M8 2v9M4 7.500 8 11.500l4-4M3 14h10"/></svg></span></div>
+      </a>
+    </div>
+    <div class="dl-note">Free to download. Premium from £2.99 a month. Cancel anytime.</div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a href="#top" class="logo"><svg class="drop" viewBox="0 0 32 40" aria-hidden="true"><defs><linearGradient id="dg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#B9D6E6"/><stop offset="1" stop-color="#7EAECB"/></linearGradient></defs><path d="M16 1.500C16 1.500 3 15.500 3 25a13 13 0 0 0 26 0C29 15.500 16 1.500 16 1.500z" fill="url(#dg2)"/><path d="M10.200 15.500c-1.900 2.700-3.300 5.300-3.600 7.600" fill="none" stroke="#fff" stroke-opacity=".75" stroke-width="2.400" stroke-linecap="round"/></svg>SkinSeek</a>
+        <p class="footer-blurb">Honest skincare, finally decoded. Scan any product, check your routine, find dupes, and build a routine made for your skin.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Features</h4>
+        <a href="#ingredient">Ingredient Analyser</a>
+        <a href="#clash">Clash Checker</a>
+        <a href="#dupe">Dupe Finder</a>
+        <a href="#routine">Build My Routine</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="https://www.tiktok.com/@skin_seek" target="_blank" rel="noopener">TikTok</a>
+        <a href="https://www.instagram.com/skin_seek" target="_blank" rel="noopener">Instagram</a>
+        <a href="mailto:hello@skinseek.co">hello@skinseek.co</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms of Service</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 SkinSeek Ltd. All rights reserved.</div>
+      <div>Made in the UK</div>
+    </div>
+  </div>
+</footer>
+
+<a class="float-dl" href="#download" data-smart>
+  <svg viewBox="0 0 16 16"><path d="M8 2v9M4 7.500 8 11.500l4-4M3 14h10"/></svg>Download now
+</a>
+
+<script>
+(function(){
+  "use strict";
+  var L = window.SKINSEEK_LINKS || {};
+  var ua = navigator.userAgent || "";
+  var isIOS = /iPhone|iPad|iPod/i.test(ua), isAndroid = /Android/i.test(ua);
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* store buttons */
+  document.querySelectorAll("[data-store]").forEach(function(a){
+    var url = L[a.dataset.store];
+    if (url) { a.href = url; a.target = "_blank"; a.rel = "noopener"; }
+  });
+  /* "Download now" buttons: straight to the right store on a phone, to the download section on desktop */
+  var direct = isIOS ? L.ios : isAndroid ? L.android : "";
+  if (direct) document.querySelectorAll("[data-smart]").forEach(function(a){ a.href = direct; a.target = "_blank"; a.rel = "noopener"; });
+
+  /* nav state */
+  var nav = document.getElementById("nav"), hero = document.getElementById("top");
+  function navState(){ nav.classList.toggle("scrolled", window.scrollY > 10); nav.classList.toggle("solid", window.scrollY > hero.offsetHeight - 70); }
+
+  /* ticker loop */
+  var t = document.getElementById("ticker");
+  if (t) t.innerHTML += t.innerHTML;
+
+  /* statement: words light up as you scroll */
+  var st = document.getElementById("statement"), words = [];
+  if (st && !reduced) {
+    (function split(node){
+      [].slice.call(node.childNodes).forEach(function(n){
+        if (n.nodeType === 3) {
+          var frag = document.createDocumentFragment();
+          n.textContent.split(/(\s+)/).forEach(function(p){
+            if (!p) return;
+            if (/^\s+$/.test(p)) { frag.appendChild(document.createTextNode(" ")); return; }
+            var s = document.createElement("span"); s.className = "w"; s.textContent = p; frag.appendChild(s); words.push(s);
+          });
+          node.replaceChild(frag, n);
+        } else if (n.nodeType === 1) split(n);
+      });
+    })(st);
+  }
+  function statementState(){
+    if (!words.length) return;
+    var r = st.getBoundingClientRect(), vh = window.innerHeight;
+    var p = (vh * 0.88 - r.top) / (vh * 0.55 + r.height * 0.5);
+    p = Math.max(0, Math.min(1, p));
+    var lit = p * (words.length + 2);
+    for (var i = 0; i < words.length; i++) words[i].style.opacity = Math.max(0.14, Math.min(1, lit - i));
+  }
+
+  var ticking = false;
+  function onScroll(){ if (ticking) return; ticking = true; requestAnimationFrame(function(){ navState(); statementState(); ticking = false; }); }
+  window.addEventListener("scroll", onScroll, {passive:true});
+  window.addEventListener("resize", onScroll);
+  navState(); statementState();
+
+  if (!("IntersectionObserver" in window)) {
+    document.querySelectorAll(".rv").forEach(function(e){ e.classList.add("in"); });
+    return;
+  }
+
+  /* sticky feature stage */
+  var stage = document.getElementById("stage");
+  var feats = [].slice.call(document.querySelectorAll(".feature"));
+  if (stage) {
+    var imgs = stage.querySelectorAll("img"), dots = stage.querySelectorAll(".stage-dots i");
+    var show = function(i){
+      for (var k = 0; k < imgs.length; k++) { imgs[k].classList.toggle("on", k === i); dots[k].classList.toggle("on", k === i); }
+      imgs[i].loading = "eager";
+      stage.style.setProperty("--tint", feats[i].style.getPropertyValue("--tint"));
+    };
+    var fo = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if (e.isIntersecting) show(feats.indexOf(e.target)); });
+    }, {rootMargin:"-48% 0px -48% 0px"});
+    feats.forEach(function(f){ fo.observe(f); });
+  }
+
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+  }, {threshold:0.15});
+  document.querySelectorAll(".rv").forEach(function(e){ io.observe(e); });
+})();
+</script>
+</body>
+</html>
